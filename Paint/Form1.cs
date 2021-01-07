@@ -14,8 +14,9 @@ namespace Paint
     {
         private Graphics graphics;
         private int X = -1, Y = -1;
-        private bool drawing = false;
+        private Boolean drawing = false;
         private Pen pen;
+        private Rectangle shape;
 
         public Form1()
         {
@@ -24,7 +25,7 @@ namespace Paint
             graphics.SmoothingMode =
                 System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             pen = new Pen(Color.Black, 5);
-            pen.StartCap = pen.EndCap = 
+            pen.StartCap = pen.EndCap =
                 System.Drawing.Drawing2D.LineCap.Round;
         }
 
@@ -42,29 +43,60 @@ namespace Paint
 
         private void Canvas_MouseDown(object sender, MouseEventArgs e)
         {
-            drawing = true;
-            X = e.X;
-            Y = e.Y;
-            Canvas.Cursor = Cursors.Cross;
+            if (radioButtonBrush.Checked)
+            {
+                drawing = true;
+                X = e.X;
+                Y = e.Y;
+                Canvas.Cursor = Cursors.Cross;
+            }
+            else
+            {
+                X = e.X;
+                Y = e.Y;
+                Canvas.Cursor = Cursors.Cross;
+            }
         }
 
+        private int w, h;
         private void Canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            drawing = false;
-            X = -1;
-            Y = -1;
-            Canvas.Cursor = Cursors.Default;
+            if (radioButtonBrush.Checked)
+            {
+                drawing = false;
+                X = -1;
+                Y = -1;
+                Canvas.Cursor = Cursors.Default;
+            }
+            else
+            {
+                w = e.X - X;
+                h = e.Y - Y;
+                shape = new Rectangle(X, Y, w, h);
+                if (radioButtonRect.Checked)
+                {
+                    graphics.DrawRectangle(pen, shape);
+                    X = -1;
+                    Y = -1;
+                }
+                if (radioButtonElipse.Checked)
+                {
+                    graphics.DrawEllipse(pen, shape);
+                    X = -1;
+                    Y = -1;
+                }
+            }
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
             Canvas.Refresh();
-            pen = new Pen(Color.Black, 5);
+            pen.Color = Color.Black;
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if(drawing && X != -1 && Y != -1)
+            if (drawing && X != -1 && Y != -1)
             {
                 graphics.DrawLine(pen, new Point(X, Y), e.Location);
                 X = e.X;
