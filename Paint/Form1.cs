@@ -34,13 +34,6 @@ namespace Paint
 
         }
 
-        // Works for all colors
-        private void pictureBoxRed_Click(object sender, EventArgs e)
-        {
-            PictureBox pic = (PictureBox)sender;
-            pen.Color = pic.BackColor;
-        }
-
         private void Canvas_MouseDown(object sender, MouseEventArgs e)
         {
             if (radioButtonBrush.Checked)
@@ -48,7 +41,10 @@ namespace Paint
                 drawing = true;
                 X = e.X;
                 Y = e.Y;
-                Canvas.Cursor = Cursors.Cross;
+                if (erasing)
+                    Canvas.Cursor = Cursors.IBeam;
+                else
+                    Canvas.Cursor = Cursors.Cross;
             }
             else
             {
@@ -86,6 +82,26 @@ namespace Paint
                     Y = -1;
                 }
             }
+        }
+
+        private void pictureBoxRed_Click_1(object sender, EventArgs e)
+        {
+            PictureBox pic = (PictureBox)sender;
+            pen.Color = pic.BackColor;
+        }
+
+        private Boolean erasing = false;
+        private void pictureBoxEraser_Click(object sender, EventArgs e)
+        {
+            pen.Color = Color.White;
+            erasing = true;
+        }
+
+        private void fontSize_ValueChanged(object sender, EventArgs e)
+        {
+            pen = new Pen(pen.Color, (int)fontSize.Value);
+            pen.StartCap = pen.EndCap =
+                System.Drawing.Drawing2D.LineCap.Round;
         }
 
         private void buttonClear_Click(object sender, EventArgs e)

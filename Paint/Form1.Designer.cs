@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Canvas = new System.Windows.Forms.Panel();
+            this.radioButtonElipse = new System.Windows.Forms.RadioButton();
+            this.radioButtonBrush = new System.Windows.Forms.RadioButton();
+            this.radioButtonRect = new System.Windows.Forms.RadioButton();
             this.Instruments = new System.Windows.Forms.FlowLayoutPanel();
             this.pictureBoxRed = new System.Windows.Forms.PictureBox();
             this.pictureBoxOrange = new System.Windows.Forms.PictureBox();
@@ -37,9 +41,9 @@
             this.pictureBoxBlue = new System.Windows.Forms.PictureBox();
             this.pictureBoxPurple = new System.Windows.Forms.PictureBox();
             this.buttonClear = new System.Windows.Forms.Button();
-            this.radioButtonRect = new System.Windows.Forms.RadioButton();
-            this.radioButtonBrush = new System.Windows.Forms.RadioButton();
-            this.radioButtonElipse = new System.Windows.Forms.RadioButton();
+            this.fontSize = new System.Windows.Forms.NumericUpDown();
+            this.pictureBoxBlack = new System.Windows.Forms.PictureBox();
+            this.pictureBoxEraser = new System.Windows.Forms.PictureBox();
             this.Canvas.SuspendLayout();
             this.Instruments.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRed)).BeginInit();
@@ -48,11 +52,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPurple)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fontSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBlack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEraser)).BeginInit();
             this.SuspendLayout();
             // 
             // Canvas
             // 
             this.Canvas.BackColor = System.Drawing.Color.White;
+            this.Canvas.Controls.Add(this.pictureBoxEraser);
+            this.Canvas.Controls.Add(this.fontSize);
             this.Canvas.Controls.Add(this.radioButtonElipse);
             this.Canvas.Controls.Add(this.radioButtonBrush);
             this.Canvas.Controls.Add(this.radioButtonRect);
@@ -67,6 +76,38 @@
             this.Canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Canvas_MouseMove);
             this.Canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Canvas_MouseUp);
             // 
+            // radioButtonElipse
+            // 
+            this.radioButtonElipse.AutoSize = true;
+            this.radioButtonElipse.Location = new System.Drawing.Point(481, 7);
+            this.radioButtonElipse.Name = "radioButtonElipse";
+            this.radioButtonElipse.Size = new System.Drawing.Size(53, 17);
+            this.radioButtonElipse.TabIndex = 8;
+            this.radioButtonElipse.Text = "Elipse";
+            this.radioButtonElipse.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonBrush
+            // 
+            this.radioButtonBrush.AutoSize = true;
+            this.radioButtonBrush.Checked = true;
+            this.radioButtonBrush.Location = new System.Drawing.Point(343, 7);
+            this.radioButtonBrush.Name = "radioButtonBrush";
+            this.radioButtonBrush.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonBrush.TabIndex = 7;
+            this.radioButtonBrush.TabStop = true;
+            this.radioButtonBrush.Text = "Brush";
+            this.radioButtonBrush.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonRect
+            // 
+            this.radioButtonRect.AutoSize = true;
+            this.radioButtonRect.Location = new System.Drawing.Point(401, 7);
+            this.radioButtonRect.Name = "radioButtonRect";
+            this.radioButtonRect.Size = new System.Drawing.Size(74, 17);
+            this.radioButtonRect.TabIndex = 6;
+            this.radioButtonRect.Text = "Rectangle";
+            this.radioButtonRect.UseVisualStyleBackColor = true;
+            // 
             // Instruments
             // 
             this.Instruments.BackColor = System.Drawing.Color.Gainsboro;
@@ -76,6 +117,7 @@
             this.Instruments.Controls.Add(this.pictureBoxGreen);
             this.Instruments.Controls.Add(this.pictureBoxBlue);
             this.Instruments.Controls.Add(this.pictureBoxPurple);
+            this.Instruments.Controls.Add(this.pictureBoxBlack);
             this.Instruments.Controls.Add(this.buttonClear);
             this.Instruments.Location = new System.Drawing.Point(0, 0);
             this.Instruments.Name = "Instruments";
@@ -91,7 +133,7 @@
             this.pictureBoxRed.Size = new System.Drawing.Size(25, 25);
             this.pictureBoxRed.TabIndex = 2;
             this.pictureBoxRed.TabStop = false;
-            this.pictureBoxRed.Click += new System.EventHandler(this.pictureBoxRed_Click);
+            this.pictureBoxRed.Click += new System.EventHandler(this.pictureBoxRed_Click_1);
             // 
             // pictureBoxOrange
             // 
@@ -102,7 +144,7 @@
             this.pictureBoxOrange.Size = new System.Drawing.Size(25, 25);
             this.pictureBoxOrange.TabIndex = 3;
             this.pictureBoxOrange.TabStop = false;
-            this.pictureBoxOrange.Click += new System.EventHandler(this.pictureBoxRed_Click);
+            this.pictureBoxOrange.Click += new System.EventHandler(this.pictureBoxRed_Click_1);
             // 
             // pictureBoxYellow
             // 
@@ -113,7 +155,7 @@
             this.pictureBoxYellow.Size = new System.Drawing.Size(25, 25);
             this.pictureBoxYellow.TabIndex = 3;
             this.pictureBoxYellow.TabStop = false;
-            this.pictureBoxYellow.Click += new System.EventHandler(this.pictureBoxRed_Click);
+            this.pictureBoxYellow.Click += new System.EventHandler(this.pictureBoxRed_Click_1);
             // 
             // pictureBoxGreen
             // 
@@ -124,7 +166,7 @@
             this.pictureBoxGreen.Size = new System.Drawing.Size(25, 25);
             this.pictureBoxGreen.TabIndex = 4;
             this.pictureBoxGreen.TabStop = false;
-            this.pictureBoxGreen.Click += new System.EventHandler(this.pictureBoxRed_Click);
+            this.pictureBoxGreen.Click += new System.EventHandler(this.pictureBoxRed_Click_1);
             // 
             // pictureBoxBlue
             // 
@@ -135,7 +177,7 @@
             this.pictureBoxBlue.Size = new System.Drawing.Size(25, 25);
             this.pictureBoxBlue.TabIndex = 3;
             this.pictureBoxBlue.TabStop = false;
-            this.pictureBoxBlue.Click += new System.EventHandler(this.pictureBoxRed_Click);
+            this.pictureBoxBlue.Click += new System.EventHandler(this.pictureBoxRed_Click_1);
             // 
             // pictureBoxPurple
             // 
@@ -146,14 +188,14 @@
             this.pictureBoxPurple.Size = new System.Drawing.Size(25, 25);
             this.pictureBoxPurple.TabIndex = 4;
             this.pictureBoxPurple.TabStop = false;
-            this.pictureBoxPurple.Click += new System.EventHandler(this.pictureBoxRed_Click);
+            this.pictureBoxPurple.Click += new System.EventHandler(this.pictureBoxRed_Click_1);
             // 
             // buttonClear
             // 
             this.buttonClear.BackColor = System.Drawing.Color.MistyRose;
             this.buttonClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonClear.Location = new System.Drawing.Point(189, 3);
+            this.buttonClear.Location = new System.Drawing.Point(220, 3);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(68, 25);
             this.buttonClear.TabIndex = 5;
@@ -161,37 +203,52 @@
             this.buttonClear.UseVisualStyleBackColor = false;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
-            // radioButtonRect
+            // fontSize
             // 
-            this.radioButtonRect.AutoSize = true;
-            this.radioButtonRect.Location = new System.Drawing.Point(321, 7);
-            this.radioButtonRect.Name = "radioButtonRect";
-            this.radioButtonRect.Size = new System.Drawing.Size(74, 17);
-            this.radioButtonRect.TabIndex = 6;
-            this.radioButtonRect.Text = "Rectangle";
-            this.radioButtonRect.UseVisualStyleBackColor = true;
+            this.fontSize.Location = new System.Drawing.Point(294, 6);
+            this.fontSize.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.fontSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.fontSize.Name = "fontSize";
+            this.fontSize.Size = new System.Drawing.Size(43, 20);
+            this.fontSize.TabIndex = 9;
+            this.fontSize.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.fontSize.ValueChanged += new System.EventHandler(this.fontSize_ValueChanged);
             // 
-            // radioButtonBrush
+            // pictureBoxBlack
             // 
-            this.radioButtonBrush.AutoSize = true;
-            this.radioButtonBrush.Checked = true;
-            this.radioButtonBrush.Location = new System.Drawing.Point(263, 7);
-            this.radioButtonBrush.Name = "radioButtonBrush";
-            this.radioButtonBrush.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonBrush.TabIndex = 7;
-            this.radioButtonBrush.TabStop = true;
-            this.radioButtonBrush.Text = "Brush";
-            this.radioButtonBrush.UseVisualStyleBackColor = true;
+            this.pictureBoxBlack.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBoxBlack.BackColor = System.Drawing.Color.Black;
+            this.pictureBoxBlack.Location = new System.Drawing.Point(189, 3);
+            this.pictureBoxBlack.Name = "pictureBoxBlack";
+            this.pictureBoxBlack.Size = new System.Drawing.Size(25, 25);
+            this.pictureBoxBlack.TabIndex = 10;
+            this.pictureBoxBlack.TabStop = false;
+            this.pictureBoxBlack.Click += new System.EventHandler(this.pictureBoxRed_Click_1);
             // 
-            // radioButtonElipse
+            // pictureBoxEraser
             // 
-            this.radioButtonElipse.AutoSize = true;
-            this.radioButtonElipse.Location = new System.Drawing.Point(401, 7);
-            this.radioButtonElipse.Name = "radioButtonElipse";
-            this.radioButtonElipse.Size = new System.Drawing.Size(53, 17);
-            this.radioButtonElipse.TabIndex = 8;
-            this.radioButtonElipse.Text = "Elipse";
-            this.radioButtonElipse.UseVisualStyleBackColor = true;
+            this.pictureBoxEraser.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBoxEraser.BackColor = System.Drawing.Color.LightGray;
+            this.pictureBoxEraser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBoxEraser.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxEraser.Image")));
+            this.pictureBoxEraser.Location = new System.Drawing.Point(541, 3);
+            this.pictureBoxEraser.Name = "pictureBoxEraser";
+            this.pictureBoxEraser.Size = new System.Drawing.Size(25, 25);
+            this.pictureBoxEraser.TabIndex = 11;
+            this.pictureBoxEraser.TabStop = false;
+            this.pictureBoxEraser.Click += new System.EventHandler(this.pictureBoxEraser_Click);
             // 
             // Form1
             // 
@@ -211,6 +268,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGreen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBlue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPurple)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fontSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBlack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEraser)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -229,6 +289,9 @@
         private System.Windows.Forms.RadioButton radioButtonRect;
         private System.Windows.Forms.RadioButton radioButtonBrush;
         private System.Windows.Forms.RadioButton radioButtonElipse;
+        private System.Windows.Forms.NumericUpDown fontSize;
+        private System.Windows.Forms.PictureBox pictureBoxBlack;
+        private System.Windows.Forms.PictureBox pictureBoxEraser;
     }
 }
 
