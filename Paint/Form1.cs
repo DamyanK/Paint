@@ -39,15 +39,29 @@ namespace Paint
             if (radioButtonBrush.Checked)
             {
                 drawing = true;
+                eraser_on = false;
+                erasing = false;
                 X = e.X;
                 Y = e.Y;
                 Canvas.Cursor = Cursors.Cross;
             }
             else
             {
-                X = e.X;
-                Y = e.Y;
-                Canvas.Cursor = Cursors.Cross;
+                if (eraser_on)
+                {
+                    erasing = true;
+                    X = e.X;
+                    Y = e.Y;
+                    Canvas.Cursor = Cursors.IBeam;
+                }
+                else
+                {
+                    eraser_on = false;
+                    erasing = false;
+                    X = e.X;
+                    Y = e.Y;
+                    Canvas.Cursor = Cursors.Cross;
+                }
             }
         }
 
@@ -56,6 +70,8 @@ namespace Paint
         {
             if (radioButtonBrush.Checked)
             {
+                eraser_on = false;
+                erasing = false;
                 drawing = false;
                 X = -1;
                 Y = -1;
@@ -68,15 +84,26 @@ namespace Paint
                 shape = new Rectangle(X, Y, w, h);
                 if (radioButtonRect.Checked)
                 {
+                    eraser_on = false;
+                    erasing = false;
                     graphics.DrawRectangle(pen, shape);
                     X = -1;
                     Y = -1;
                 }
                 if (radioButtonElipse.Checked)
                 {
+                    eraser_on = false;
+                    erasing = false;
                     graphics.DrawEllipse(pen, shape);
                     X = -1;
                     Y = -1;
+                }
+                if (eraser_on)
+                {
+                    erasing = false;
+                    X = -1;
+                    Y = -1;
+                    Canvas.Cursor = Cursors.Default;
                 }
             }
         }
@@ -87,11 +114,17 @@ namespace Paint
             pen.Color = pic.BackColor;
         }
 
-        private Boolean erasing = false;
+        private Boolean erasing = false, eraser_on = false;
+        private Pen eraser;
         private void pictureBoxEraser_Click(object sender, EventArgs e)
         {
-            pen.Color = Color.White;
-            erasing = true;
+            eraser_on = true;
+            eraser = new Pen(Canvas.BackColor, (int)fontSize.Value);
+            eraser.StartCap = eraser.EndCap =
+                System.Drawing.Drawing2D.LineCap.Round;
+            radioButtonBrush.Checked = false;
+            radioButtonElipse.Checked = false;
+            radioButtonRect.Checked = false;
         }
 
         private void fontSize_ValueChanged(object sender, EventArgs e)
@@ -99,12 +132,17 @@ namespace Paint
             pen = new Pen(pen.Color, (int)fontSize.Value);
             pen.StartCap = pen.EndCap =
                 System.Drawing.Drawing2D.LineCap.Round;
+            eraser = new Pen(Canvas.BackColor, (int)fontSize.Value);
+            eraser.StartCap = eraser.EndCap =
+                System.Drawing.Drawing2D.LineCap.Round;
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
             Canvas.Refresh();
             pen.Color = Color.Black;
+            radioButtonBrush.Checked = true;
+            fontSize.Value = 5;
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
@@ -112,6 +150,12 @@ namespace Paint
             if (drawing && X != -1 && Y != -1)
             {
                 graphics.DrawLine(pen, new Point(X, Y), e.Location);
+                X = e.X;
+                Y = e.Y;
+            }
+            if (erasing && X != -1 && Y != -1)
+            {
+                graphics.DrawLine(eraser, new Point(X, Y), e.Location);
                 X = e.X;
                 Y = e.Y;
             }
