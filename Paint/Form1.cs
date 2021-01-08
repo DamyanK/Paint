@@ -41,10 +41,7 @@ namespace Paint
                 drawing = true;
                 X = e.X;
                 Y = e.Y;
-                if (erasing)
-                    Canvas.Cursor = Cursors.IBeam;
-                else
-                    Canvas.Cursor = Cursors.Cross;
+                Canvas.Cursor = Cursors.Cross;
             }
             else
             {
