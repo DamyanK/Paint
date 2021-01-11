@@ -100,7 +100,6 @@ namespace Paint
                 }
                 if (eraser_on)
                 {
-                    erasing = false;
                     X = -1;
                     Y = -1;
                     Canvas.Cursor = Cursors.Default;
